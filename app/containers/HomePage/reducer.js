@@ -9,20 +9,21 @@
  * case YOUR_ACTION_CONSTANT:
  *   return state.set('yourStateVariable', true);
  */
-import { fromJS } from 'immutable';
+import { fromJS } from "immutable";
 
-import { CHANGE_USERNAME } from './constants';
+import { GENERATE_RECTANGLES } from "./constants";
+import generateRecs from "../../utils/generateRectangles/generateRectangles";
 
 // The initial state of the App
 const initialState = fromJS({
-  username: ''
+  rectangles: []
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
+    case GENERATE_RECTANGLES:
       // Delete prefixed '@' from the github username
-      return state.set('username', action.name.replace(/@/gi, ''));
+      return state.set("rectangles", generateRecs());
     default:
       return state;
   }

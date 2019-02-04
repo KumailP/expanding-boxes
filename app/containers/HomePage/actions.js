@@ -15,18 +15,15 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { GENERATE_RECTANGLES } from "./constants";
 
 /**
  * Changes the input field of the form
  *
- * @param  {name} name The new text of the input field
- *
- * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @return {object}    An action object with a type of GENERATE_RECTANGLES
  */
-export function changeUsername(name) {
+export function generateRectangles() {
   return {
-    type: CHANGE_USERNAME,
-    name
+    type: GENERATE_RECTANGLES
   };
 }

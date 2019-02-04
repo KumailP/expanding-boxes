@@ -14,28 +14,18 @@ export default class HomePage extends React.PureComponent {
    * when initial state username is not null, submit the form to load repos
    */
   componentDidMount() {
-    const { username, onSubmitForm } = this.props;
-    if (username && username.trim().length > 0) {
-      onSubmitForm();
-    }
+    this.props.onGenerateRectangles();
   }
 
   render() {
-    const { loading, error } = this.props;
-    const reposListProps = {
-      loading,
-      error
-    };
+    // const { loading, error } = this.props;
 
     return <div>Homepage</div>;
   }
 }
 
 HomePage.propTypes = {
+  onGenerateRectangles: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
 };
