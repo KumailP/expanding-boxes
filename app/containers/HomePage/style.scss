@@ -1,0 +1,22 @@
+.rect {
+    cursor: pointer;
+    width: 200px;
+    display: inline-block;
+    transition: 1s;
+    margin: 4px;
+}
+
+.rect:hover {
+    transform: scale(1.05);
+    transition: 1s;
+}
+
+.home {
+    background-color: #222;
+    padding: 5px;
+    min-height: 100vh;    
+    
+    column-count: 8;
+    column-gap: 0;
+    column-width: 30%;
+}
