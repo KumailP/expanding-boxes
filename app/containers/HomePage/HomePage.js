@@ -18,13 +18,14 @@ export default class HomePage extends React.PureComponent {
   }
 
   render() {
-    // const { loading, error } = this.props;
+    console.log(this.props.rectangles.size != 0);
 
     return <div>Homepage</div>;
   }
 }
 
 HomePage.propTypes = {
+  rectangles: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onGenerateRectangles: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])

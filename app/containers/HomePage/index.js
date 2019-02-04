@@ -6,12 +6,14 @@ import { makeSelectLoading, makeSelectError } from "containers/App/selectors";
 import { generateRectangles } from "./actions";
 import reducer from "./reducer";
 import HomePage from "./HomePage";
+import { makeSelectRectangles } from "./selectors";
 
 const mapDispatchToProps = dispatch => ({
   onGenerateRectangles: () => dispatch(generateRectangles())
 });
 
 const mapStateToProps = createStructuredSelector({
+  rectangles: makeSelectRectangles(),
   loading: makeSelectLoading(),
   error: makeSelectError()
 });
