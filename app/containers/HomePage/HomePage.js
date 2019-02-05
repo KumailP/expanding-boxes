@@ -6,6 +6,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import StackGrid from "react-stack-grid";
 import "./style.scss";
 
 export default class HomePage extends React.PureComponent {
@@ -13,14 +14,12 @@ export default class HomePage extends React.PureComponent {
     super(props);
     this.state = {
       rectangles: [],
-      cols: 5,
       activeRect: null
     };
   }
 
   componentDidMount() {
     this.props.onGenerateRectangles();
-    window.addEventListener("resize", this.updateComponent);
   }
 
   componentDidUpdate() {
@@ -28,30 +27,6 @@ export default class HomePage extends React.PureComponent {
       this.setState({ rectangles: this.props.rectangles });
     }
   }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateComponent);
-  }
-
-  updateComponent = () => {
-    this.updateColumns();
-  };
-
-  updateColumns = () => {
-    const browserWidth = Math.max(
-      document.body.scrollWidth,
-      document.documentElement.scrollWidth,
-      document.body.offsetWidth,
-      document.documentElement.offsetWidth,
-      document.documentElement.clientWidth
-    );
-
-    let maxCols = 1;
-    if (Math.floor(browserWidth / 220) > maxCols) {
-      maxCols = Math.floor(browserWidth / 220);
-    }
-    this.setState({ cols: maxCols });
-  };
 
   updateActiveRect = activeRect => {
     if (this.state.activeRect === activeRect) {
@@ -63,30 +38,15 @@ export default class HomePage extends React.PureComponent {
     }
   };
 
-  reorder = (arr, columns) => {
-    const cols = columns;
-    const out = [];
-    let col = 0;
-    while (col < cols) {
-      for (let i = 0; i < arr.length; i += cols) {
-        let _val = arr[i + col];
-        if (_val !== undefined) out.push(_val);
-      }
-      col++;
-    }
-    this.setState({ cols: columns });
-    return out;
-  };
-
   render() {
     // console.log("Rectangle #:", this.props.match.params.id);
 
-    const { rectangles, cols } = this.state;
+    const { rectangles } = this.state;
 
     return (
-      <div className="home" style={{ columnCount: cols }}>
-        {rectangles.length > 0 &&
-          this.reorder(rectangles, cols).map((rect, i) => (
+      <div className="home">
+        <StackGrid columnWidth={200} gutterWidth={15}>
+          {rectangles.map((rect, i) => (
             <div
               key={i}
               className="rect"
@@ -95,10 +55,9 @@ export default class HomePage extends React.PureComponent {
                 height: `${rect.height}px`,
                 backgroundColor: rect.color
               }}
-            >
-              {rect.i}
-            </div>
+            />
           ))}
+        </StackGrid>
       </div>
     );
   }
