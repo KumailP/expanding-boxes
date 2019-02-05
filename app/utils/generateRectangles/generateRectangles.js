@@ -16,7 +16,8 @@ export default function generate() {
   for (let i = 0; i < 30; i++) {
     const rectangle = {
       height: Math.floor(Math.random() * 201 + 100),
-      color: getRandomColor()
+      color: getRandomColor(),
+      i
     };
     rectangles.push(rectangle);
   }
