@@ -20,6 +20,9 @@ export default class HomePage extends React.PureComponent {
 
   componentDidMount() {
     this.props.onGenerateRectangles();
+
+    if (this.props.match.params.id != undefined)
+      this.setState({ activeRect: this.props.match.params.id });
   }
 
   componentDidUpdate() {
@@ -33,15 +36,14 @@ export default class HomePage extends React.PureComponent {
       this.setState({ activeRect: null });
       this.props.history.push(`/`);
     } else {
-      this.setState({ activeRect });
+      this.setState({ activeRect: activeRect });
       this.props.history.push(`/open/${activeRect}`);
     }
   };
 
   render() {
-    // console.log("Rectangle #:", this.props.match.params.id);
-
-    const { rectangles } = this.state;
+    const { rectangles, activeRect } = this.state;
+    console.log("Rectangle #:", activeRect);
 
     return (
       <div className="home">
@@ -49,7 +51,7 @@ export default class HomePage extends React.PureComponent {
           {rectangles.map((rect, i) => (
             <div
               key={i}
-              className="rect"
+              className={`rect ${activeRect === rect.i && "active"}`}
               onClick={() => this.updateActiveRect(rect.i)}
               style={{
                 height: `${rect.height}px`,
@@ -58,6 +60,10 @@ export default class HomePage extends React.PureComponent {
             />
           ))}
         </StackGrid>
+        <div
+          className="overlay"
+          style={activeRect ? { opacity: 0.8 } : { opacity: 0 }}
+        />
       </div>
     );
   }
