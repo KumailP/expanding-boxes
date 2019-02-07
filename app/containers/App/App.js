@@ -15,7 +15,7 @@ import "./style.scss";
 const App = () => (
   <div className="app-wrapper">
     <Switch>
-      <Route exact path="/" component={HomePage} />
+      <Route path="/:open?/:id?" component={HomePage} />
     </Switch>
   </div>
 );
