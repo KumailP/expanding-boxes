@@ -21,10 +21,10 @@ export default class HomePage extends React.PureComponent {
 
   componentDidMount() {
     this.props.onGenerateRectangles();
-    this.generateLayout();
-    if (this.props.match.params.id != undefined)
-      this.setState({ activeRect: this.props.match.params.id });
     window.addEventListener("resize", this.generateLayout);
+    if (this.props.match.params.id != undefined)
+      this.setState({ activeRect: parseInt(this.props.match.params.id, 10) });
+    this.generateLayout();
   }
 
   componentDidUpdate(prevProps, prevState) {
