@@ -27,9 +27,12 @@ export default class HomePage extends React.PureComponent {
     window.addEventListener("resize", this.generateLayout);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.rectangles.size != 0) {
       this.setState({ rectangles: this.props.rectangles });
+    }
+    if (prevState.cols !== this.state.cols) {
+      this.generateLayout();
     }
   }
 
@@ -56,7 +59,7 @@ export default class HomePage extends React.PureComponent {
 
   updateInitialYValues = cols => {
     let yValues = new Array(cols);
-    yValues.fill(0);
+    yValues.fill(20);
     this.setState({ yValues });
   };
 
@@ -65,9 +68,23 @@ export default class HomePage extends React.PureComponent {
     this.updateInitialYValues(cols);
   };
 
+  getLeftMargin = () => {
+    const { cols } = this.state;
+    const widthWithCols = cols * 210;
+    const browserWidth = Math.max(
+      document.body.scrollWidth,
+      document.documentElement.scrollWidth,
+      document.body.offsetWidth,
+      document.documentElement.offsetWidth,
+      document.documentElement.clientWidth
+    );
+    const freeWidth = browserWidth - widthWithCols;
+    return freeWidth / 2;
+  };
+
   generateRectangles = () => {
     const { rectangles, cols, yValues, activeRect } = this.state;
-    let currentX = 0;
+    let currentX = this.getLeftMargin();
     let col = 0;
     for (let i = 0; i < rectangles.length; i++) {
       if (col < cols) {
@@ -78,7 +95,7 @@ export default class HomePage extends React.PureComponent {
         col++;
       } else {
         col = 0;
-        currentX = 0;
+        currentX = this.getLeftMargin();
         rectangles[i].x = 0;
         rectangles[i].y = yValues[0];
         i--;
@@ -95,11 +112,9 @@ export default class HomePage extends React.PureComponent {
           backgroundColor: rect.color,
           top: rect.y,
           left: rect.x,
-          zIndex: 0
+          zIndex: 1
         }}
-      >
-        {i}
-      </div>
+      />
     ));
   };
 
@@ -119,7 +134,12 @@ export default class HomePage extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <div className="home">
+        <div
+          className="home"
+          style={
+            activeRect != null ? { height: "100vh", overflow: "hidden" } : {}
+          }
+        >
           <div className="rectangles" style={{ width: `${cols * 210}px` }}>
             {this.generateRectangles()}
           </div>
