@@ -6,7 +6,6 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import StackGrid from "react-stack-grid";
 import "./style.scss";
 
 export default class HomePage extends React.PureComponent {
