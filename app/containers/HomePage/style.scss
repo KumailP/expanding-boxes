@@ -50,7 +50,7 @@
   cursor: pointer;
   width: 200px;
   position: absolute;
-  transition: 0.5s;
+  transition: 0.5s !important;
 }
 
 .active {
