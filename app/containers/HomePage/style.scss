@@ -1,10 +1,3 @@
-body {
-  position: relative;
-  float: left;
-  height: 3000px;
-  width: 100%;
-}
-
 .rectangles {
   position: relative;
   left: 0;
@@ -12,18 +5,28 @@ body {
   right: 0;
   bottom: 0;
   height: 100%;
+  z-index: 1;
+}
+
+.underlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(48, 48, 48);
+  z-index: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .home {
   padding: 15px 0px 15px 0px;
   background-color: #e9e9e9;
 
-  position: absolute;
+  position: relative;
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
-  background-color: rgb(48, 48, 48);
 
   span {
     z-index: auto !important;

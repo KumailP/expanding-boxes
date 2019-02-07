@@ -118,16 +118,19 @@ export default class HomePage extends React.PureComponent {
     // console.log("Rectangle #:", activeRect);
 
     return (
-      <div className="home">
-        <div className="rectangles" style={{ width: `${cols * 210}px` }}>
-          {this.generateRectangles()}
-        </div>
+      <React.Fragment>
+        <div className="home">
+          <div className="rectangles" style={{ width: `${cols * 210}px` }}>
+            {this.generateRectangles()}
+          </div>
 
-        <div
-          className="overlay"
-          style={activeRect !== null ? { opacity: 0.8 } : { opacity: 0 }}
-        />
-      </div>
+          <div
+            className="overlay"
+            style={activeRect !== null ? { opacity: 0.8 } : { opacity: 0 }}
+          />
+        </div>
+        <div className="underlay" />
+      </React.Fragment>
     );
   }
 }
