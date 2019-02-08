@@ -41,13 +41,8 @@ export default class HomePage extends React.PureComponent {
   }
 
   updateColumns = () => {
-    const browserWidth = Math.max(
-      document.body.scrollWidth,
-      document.documentElement.scrollWidth,
-      document.body.offsetWidth,
-      document.documentElement.offsetWidth,
-      document.documentElement.clientWidth
-    );
+    const browserWidth = document.documentElement.clientWidth;
+
     let maxCols = 1;
     if (Math.floor(browserWidth / 220) > maxCols) {
       maxCols = Math.floor(browserWidth / 220);
@@ -71,13 +66,7 @@ export default class HomePage extends React.PureComponent {
   getLeftMargin = () => {
     const { cols } = this.state;
     const widthWithCols = cols * 210;
-    const browserWidth = Math.max(
-      document.body.scrollWidth,
-      document.documentElement.scrollWidth,
-      document.body.offsetWidth,
-      document.documentElement.offsetWidth,
-      document.documentElement.clientWidth
-    );
+    const browserWidth = document.documentElement.clientWidth;
     const freeWidth = browserWidth - widthWithCols;
     return freeWidth / 2;
   };
