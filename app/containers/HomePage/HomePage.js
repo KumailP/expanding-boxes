@@ -73,20 +73,21 @@ export default class HomePage extends React.PureComponent {
 
   generateRectangles = () => {
     const { rectangles, cols, yValues, activeRect } = this.state;
-    let currentX = this.getLeftMargin();
+    let initialX = this.getLeftMargin();
     let col = 0;
+    let minY = 0;
     for (let i = 0; i < rectangles.length; i++) {
+      minY = yValues.indexOf(Math.min(...yValues));
       if (col < cols) {
-        rectangles[i].x = currentX;
-        rectangles[i].y = yValues[col];
-        currentX += 210;
-        yValues[col] += rectangles[i].height + 10;
+        rectangles[i].x = initialX + 210 * minY;
+        rectangles[i].y = yValues[minY];
+        yValues[minY] += rectangles[i].height + 10;
         col++;
       } else {
         col = 0;
-        currentX = this.getLeftMargin();
-        rectangles[i].x = 0;
-        rectangles[i].y = yValues[0];
+        initialX = this.getLeftMargin();
+        rectangles[i].x = initialX;
+        rectangles[i].y = yValues[minY];
         i--;
       }
     }
@@ -103,7 +104,9 @@ export default class HomePage extends React.PureComponent {
           left: rect.x,
           zIndex: 1
         }}
-      />
+      >
+        {i}
+      </div>
     ));
   };
 
