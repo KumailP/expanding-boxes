@@ -6,6 +6,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import _ from "lodash";
 import "./style.scss";
 
 export default class HomePage extends React.PureComponent {
@@ -21,7 +22,7 @@ export default class HomePage extends React.PureComponent {
 
   componentDidMount() {
     this.props.onGenerateRectangles();
-    window.addEventListener("resize", this.generateLayout);
+    window.addEventListener("resize", _.debounce(this.generateLayout, 50));
     if (this.props.match.params.id != undefined)
       this.setState({ activeRect: parseInt(this.props.match.params.id, 10) });
     this.generateLayout();
