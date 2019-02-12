@@ -36,7 +36,7 @@
   min-height: 100%;
   width: 100vw;
   height: 100vh;
-  opacity: 0.8;
+  opacity: 0.6;
   background-color: #000;
   z-index: 2;
   pointer-events: none;
@@ -63,6 +63,10 @@
   left: 0 !important;
   z-index: 999 !important;
   transition: 0s z-index;
+}
+
+.inactive {
+  transform: scale(0.7);
 }
 
 .rect:hover {

@@ -13,6 +13,7 @@ export default class HomePage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      active: false,
       rectangles: [],
       cols: null,
       activeRect: null,
@@ -73,7 +74,7 @@ export default class HomePage extends React.PureComponent {
   };
 
   generateRectangles = () => {
-    const { rectangles, cols, yValues, activeRect } = this.state;
+    const { rectangles, cols, yValues, activeRect, active } = this.state;
     let initialX = this.getLeftMargin();
     let col = 0;
     let minY = 0;
@@ -93,30 +94,38 @@ export default class HomePage extends React.PureComponent {
       }
     }
 
-    return rectangles.map((rect, i) => (
-      <div
-        key={i}
-        className={`rect ${activeRect === rect.i ? "active" : ""}`}
-        onClick={() => this.updateActiveRect(rect.i)}
-        style={{
-          height: `${rect.height}px`,
-          backgroundColor: rect.color,
-          top: rect.y,
-          left: rect.x,
-          zIndex: 1
-        }}
-      >
-        {i}
-      </div>
-    ));
+    return rectangles.map((rect, i) => {
+      let rectClass = "";
+      if (activeRect === rect.i) rectClass = "active";
+      else if (active) rectClass = "inactive";
+
+      return (
+        <div
+          key={i}
+          className={`rect ${rectClass}`}
+          onClick={() => this.updateActiveRect(rect.i)}
+          style={{
+            height: `${rect.height}px`,
+            backgroundColor: rect.color,
+            top: rect.y,
+            left: rect.x,
+            zIndex: 1
+          }}
+        />
+      );
+    });
   };
 
   updateActiveRect = activeRect => {
     if (this.state.activeRect === activeRect) {
-      this.setState({ activeRect: null }, () => this.generateLayout());
+      this.setState({ activeRect: null, active: false }, () =>
+        this.generateLayout()
+      );
       this.props.history.push(`/`);
     } else {
-      this.setState({ activeRect: activeRect }, () => this.generateLayout());
+      this.setState({ activeRect: activeRect, active: true }, () =>
+        this.generateLayout()
+      );
       this.props.history.push(`/open/${activeRect}`);
     }
   };
